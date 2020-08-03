@@ -16,6 +16,7 @@ steps:
   # Download build artifacts
   # Download files that were saved as artifacts of a completed build
   - task: DownloadBuildArtifacts@0
+    displayName: Download Build Artifacts
     inputs:
       buildType: 'current' # Options: current, specific
       project: '${{ parameters.projectId }}'
@@ -24,11 +25,11 @@ steps:
       buildVersionToDownload: 'latest' # Required when buildType == Specific. Options: latest, latestFromBranch, specific
       #allowPartiallySucceededBuilds: false # Optional
       branchName: '$(Build.SourceBranch)' # Required when buildType == Specific && BuildVersionToDownload == LatestFromBranch
-      buildId: '${{ parameters.artifactBuildId }}'# Required when buildType == Specific && BuildVersionToDownload == Specific
+      #buildId: '${{ parameters.artifactBuildId }}'# Required when buildType == Specific && BuildVersionToDownload == Specific
       #tags: # Optional
       downloadType: 'specific' # Choose whether to download a single artifact or all artifacts of a specific build. Options: single, specific
       #artifactName: # Required when downloadType == Single
-      itemPattern: '**' # Optional
+      #itemPattern: '**' # Optional
       downloadPath: '$(System.ArtifactsDirectory)' 
       #parallelizationLimit: '8' # Optional
   - task: DownloadPipelineArtifact@2
