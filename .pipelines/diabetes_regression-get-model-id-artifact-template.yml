@@ -33,6 +33,7 @@ steps:
       downloadType: 'specific' # Choose whether to download a single artifact or all artifacts of a specific build. Options: single, specific
       #artifactName: # Required when downloadType == Single
       #itemPattern: '**' # Optional
+      downloadPath: $(Build.SourcesDirectory)/bin 
       #parallelizationLimit: '8' # Optional
   - task: DownloadPipelineArtifact@2
     displayName: Download Pipeline Artifacts
