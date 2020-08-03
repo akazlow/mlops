@@ -18,10 +18,10 @@ steps:
   - task: DownloadBuildArtifacts@0
     displayName: Download Build Artifacts
     inputs:
-      buildType: 'current' # Options: current, specific
+      buildType: 'specific' # Options: current, specific
       project: '${{ parameters.projectId }}'
       pipeline: '${{ parameters.pipelineId }}'
-      #specificBuildWithTriggering: false # Optional
+      specificBuildWithTriggering: true # Optional
       ${{ if eq(parameters.artifactBuildId, 'latest') }}:
         buildVersionToDownload: 'latestFromBranch'
       ${{ if ne(parameters.artifactBuildId, 'latest') }}:
