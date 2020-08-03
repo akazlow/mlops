@@ -22,15 +22,17 @@ steps:
       project: '${{ parameters.projectId }}'
       pipeline: '${{ parameters.pipelineId }}'
       #specificBuildWithTriggering: false # Optional
-      buildVersionToDownload: 'latest' # Required when buildType == Specific. Options: latest, latestFromBranch, specific
+      ${{ if eq(parameters.artifactBuildId, 'latest') }}:
+        buildVersionToDownload: 'latestFromBranch'
+      ${{ if ne(parameters.artifactBuildId, 'latest') }}:
+        buildVersionToDownload: 'specific'
+        buildId: '${{ parameters.artifactBuildId }}'
       #allowPartiallySucceededBuilds: false # Optional
       branchName: '$(Build.SourceBranch)' # Required when buildType == Specific && BuildVersionToDownload == LatestFromBranch
-      #buildId: '${{ parameters.artifactBuildId }}'# Required when buildType == Specific && BuildVersionToDownload == Specific
       #tags: # Optional
       downloadType: 'specific' # Choose whether to download a single artifact or all artifacts of a specific build. Options: single, specific
       #artifactName: # Required when downloadType == Single
       #itemPattern: '**' # Optional
-      downloadPath: '$(System.ArtifactsDirectory)' 
       #parallelizationLimit: '8' # Optional
   - task: DownloadPipelineArtifact@2
     displayName: Download Pipeline Artifacts
