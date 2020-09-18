@@ -29,13 +29,6 @@ jobs:
       inputs:
         terraformVersion: 'latest'
         downloadUrl: 'https://releases.hashicorp.com/terraform/0.13.3/terraform_0.13.3_linux_amd64.zip'
-    - task: Terraform@2
-      displayName: Install terraform
-      inputs:
-          TemplatePath: '/legacy/iac/*'
-          Arguments: 'init validate'
-          InstallTerraform: true
-          UseAzureSub: false
     - task: Bash@3
       displayName: Install tflint
       inputs:
@@ -51,6 +44,8 @@ jobs:
       inputs:
         targetType: 'inline'
         script: |
+          terraform init
+          terraform validate
           tflint
 
   
