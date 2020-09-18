@@ -41,7 +41,7 @@ jobs:
       displayName: Init And Validate Terraform and TFLint
       inputs:
         targetType: 'inline'
-        workingDirectory: ./iac
+        workingDirectory: ./iac/sub_folder
         script: |
           terraform init
           terraform validate
