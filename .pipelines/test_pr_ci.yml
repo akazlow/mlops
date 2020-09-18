@@ -38,7 +38,14 @@ jobs:
           rm tflint.zip
           sudo mv tflint /usr/local/bin \
     # Run checks
-
+    - task: Bash@3
+      displayName: Init And Validate Terraform and TFLint
+      inputs:
+        targetType: 'inline'
+        script: |
+          terraform init iac/**/
+          terraform validate iac/**/
+          tflint
     - task: TerraformCLI@0
       inputs:
         command: 'init'
@@ -47,12 +54,4 @@ jobs:
       inputs:
         command: 'validate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/iac/**'
-    - task: PowerShell@2
-      displayName: Init And Validate Terraform and TFLint
-      inputs:
-        targetType: 'inline'
-        script: |
-          terraform init iac/
-          terraform validate iac/
-          tflint
   
