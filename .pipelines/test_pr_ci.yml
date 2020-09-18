@@ -1,4 +1,3 @@
-
 # Pipeline to run basic code quality tests as part of pull requests.
 
 resources:
@@ -13,7 +12,7 @@ pr:
     - '*'
   paths:
     include:
-    - 'iac/**.tf' 
+    - 'iac/**/*.tf' 
   
 pool:
   vmImage: 'ubuntu-latest'
@@ -42,16 +41,9 @@ jobs:
       displayName: Init And Validate Terraform and TFLint
       inputs:
         targetType: 'inline'
+        workingDirectory: ./iac/caf/landingzones/launchpad
         script: |
-          terraform init iac/**/
-          terraform validate iac/**/
-          tflint
-    - task: TerraformCLI@0
-      inputs:
-        command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/iac/**/'
-    - task: TerraformCLI@0
-      inputs:
-        command: 'validate'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/iac/**'
+          terraform init
+          terraform validate
+          tflint 
   
