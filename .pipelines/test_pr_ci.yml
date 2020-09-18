@@ -5,47 +5,47 @@ resources:
     - container: mlops
       image: mcr.microsoft.com/mlops/python:latest
   
-  trigger: none
-  pr:
-    branches:
-      include:
-      - '*'
-    paths:
-      include:
-      - 'iac/*.tf' 
-  
-  pool:
-    vmImage: 'ubuntu-latest'
-  
-  jobs:
-    - job: "IaC_CI_Pipeline"
-      displayName: "IaC CI Pipeline"
-      # run tflint
-      # https://dev.to/eliises/dockerizing-devops-39hk
-      steps:
-        # Install dependencies
-      - task: Bash@3
-        displayName: Install tflint
-        inputs:
-          targetType: 'inline'
-          script: |
-            curl -L https://github.com/terraform-linters/tflint/releases/download/v0.17.0/tflint_linux_amd64.zip -o tflint.zip
-            unzip tflint.zip
-            rm tflint.zip
-            sudo mv tflint /usr/local/bin \
-    
-      # Run checks
-      - task: PowerShell@2
-        displayName: Validate terraform
-        inputs:
-          targetType: 'inline'
-          script: |
-            tflint
-      - task: Terraform@2
-        displayName: Install terraform
-        inputs:
-           TemplatePath: '/legacy/iac/*'
-           Arguments: 'init validate'
-           InstallTerraform: true
-           UseAzureSub: false
+trigger: none
+pr:
+  branches:
+    include:
+    - '*'
+paths:
+    include:
+    - 'iac/*.tf' 
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+  - job: "IaC_CI_Pipeline"
+    displayName: "IaC CI Pipeline"
+    # run tflint
+    # https://dev.to/eliises/dockerizing-devops-39hk
+    steps:
+    # Install dependencies
+    - task: Bash@3
+    displayName: Install tflint
+    inputs:
+        targetType: 'inline'
+        script: |
+        curl -L https://github.com/terraform-linters/tflint/releases/download/v0.17.0/tflint_linux_amd64.zip -o tflint.zip
+        unzip tflint.zip
+        rm tflint.zip
+        sudo mv tflint /usr/local/bin \
+
+    # Run checks
+    - task: PowerShell@2
+    displayName: Validate terraform
+    inputs:
+        targetType: 'inline'
+        script: |
+        tflint
+    - task: Terraform@2
+    displayName: Install terraform
+    inputs:
+        TemplatePath: '/legacy/iac/*'
+        Arguments: 'init validate'
+        InstallTerraform: true
+        UseAzureSub: false
   
