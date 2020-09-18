@@ -1,3 +1,4 @@
+
 # Pipeline to run basic code quality tests as part of pull requests.
 
 resources:
@@ -24,6 +25,17 @@ jobs:
     # https://dev.to/eliises/dockerizing-devops-39hk
     steps:
       # Install dependencies
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: 'latest'
+        downloadUrl: 'https://releases.hashicorp.com/terraform/0.13.3/terraform_0.13.3_linux_amd64.zip'
+    - task: Terraform@2
+      displayName: Install terraform
+      inputs:
+          TemplatePath: '/legacy/iac/*'
+          Arguments: 'init validate'
+          InstallTerraform: true
+          UseAzureSub: false
     - task: Bash@3
       displayName: Install tflint
       inputs:
@@ -33,7 +45,6 @@ jobs:
           unzip tflint.zip
           rm tflint.zip
           sudo mv tflint /usr/local/bin \
-  
     # Run checks
     - task: PowerShell@2
       displayName: Validate terraform
@@ -41,11 +52,5 @@ jobs:
         targetType: 'inline'
         script: |
           tflint
-    - task: Terraform@2
-      displayName: Install terraform
-      inputs:
-          TemplatePath: '/legacy/iac/*'
-          Arguments: 'init validate'
-          InstallTerraform: true
-          UseAzureSub: false
+
   
