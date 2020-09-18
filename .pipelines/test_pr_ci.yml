@@ -11,10 +11,9 @@ pr:
   branches:
     include:
     - '*'
-    - develop
   paths:
     include:
-    - 'iac/*.tf' 
+    - 'iac/**.tf' 
   
 pool:
   vmImage: 'ubuntu-latest'
