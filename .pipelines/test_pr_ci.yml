@@ -26,6 +26,7 @@ jobs:
     steps:
       # Install dependencies
     - task: TerraformInstaller@0
+      displayName: Install Terraform
       inputs:
         terraformVersion: 'latest'
         downloadUrl: 'https://releases.hashicorp.com/terraform/0.13.3/terraform_0.13.3_linux_amd64.zip'
@@ -40,12 +41,11 @@ jobs:
           sudo mv tflint /usr/local/bin \
     # Run checks
     - task: PowerShell@2
-      displayName: Validate terraform
+      displayName: Init And Validate Terraform and TFLint
       inputs:
         targetType: 'inline'
         script: |
           terraform init
           terraform validate
           tflint
-
   
