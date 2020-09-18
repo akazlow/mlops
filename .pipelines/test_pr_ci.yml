@@ -1,6 +1,5 @@
 
 # Pipeline to run basic code quality tests as part of pull requests.
-
 resources:
     containers:
     - container: mlops
@@ -13,7 +12,7 @@ pr:
     - '*'
   paths:
     include:
-    - 'iac/*.tf' 
+    - 'iac/**.tf' 
   
 pool:
   vmImage: 'ubuntu-latest'
