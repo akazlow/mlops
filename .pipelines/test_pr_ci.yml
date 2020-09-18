@@ -21,10 +21,8 @@ pool:
 jobs:
   - job: "IaC_CI_Pipeline"
     displayName: "IaC CI Pipeline"
-    # run tflint
-    # https://dev.to/eliises/dockerizing-devops-39hk
     steps:
-      # Install dependencies
+    # Install dependencies
     - task: TerraformInstaller@0
       displayName: Install Terraform
       inputs:
