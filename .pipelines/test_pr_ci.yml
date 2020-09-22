@@ -6,13 +6,6 @@ resources:
       image: mcr.microsoft.com/mlops/python:latest
   
 trigger: none
-pr:
-  branches:
-    include:
-    - '*'
-  paths:
-    include:
-    - 'iac/**/*.tf' 
   
 pool:
   vmImage: 'ubuntu-latest'
