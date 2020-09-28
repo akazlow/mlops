@@ -16,5 +16,5 @@
           targetType: 'inline'
           workingDirectory: ./code/mlops/model-scoring
           script: |
-            echo 'Hello World'
+            echo 'Hello World' 
   
